@@ -90,3 +90,7 @@ def preview_resume(request,slug):
     for skill in resume.skills.all():
         skills_grouped[skill.category].append(skill.name)
     return render(request,'resume/preview.html',{'resume':resume,'skills_grouped': dict(skills_grouped)})
+
+def dashboard(request):
+    resumes = Resume.objects.all().order_by('id')
+    return render(request,'resume/dashboard.html',{'resumes':resumes})

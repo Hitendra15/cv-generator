@@ -23,3 +23,9 @@
     function printResume() {
         window.print();
     }
+
+    function backPage(){
+        let $submitBtn = $form.find('.submit-btn');
+        $submitBtn.prop('disabled',false).text('Generate Resume');
+        history.back();
+    }
