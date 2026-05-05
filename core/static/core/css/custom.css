@@ -1,0 +1,496 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: #f6f7fb;
+    color: #111827;
+    line-height: 1.5;
+}
+
+.app-header {
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.app-header-inner {
+    max-width: 1100px;
+    margin: auto;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+.logo {
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+.save-btn {
+    background: #111827;
+    color: #fff;
+    border: none;
+    padding: 9px 18px;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.save-btn:hover {
+    background: #1f2937;
+}
+
+.app-body {
+    padding: 50px 20px;
+}
+
+.page {
+    max-width: 900px;
+    margin: auto;
+}
+
+.wrapper {
+    width: 100%;
+}
+
+h1 {
+    font-size: 30px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    color: #6b7280;
+    margin-bottom: 35px;
+    font-size: 15px;
+}
+
+.card-section {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 28px;
+    margin-bottom: 25px;
+    border: 1px solid #f1f1f1;
+    transition: all 0.2s ease;
+}
+
+.card-section:hover {
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.card-section h3 {
+    font-size: 18px;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.mini-card {
+    background: #f9fafb;
+    padding: 16px;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    border: 1px solid #f0f0f0;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+label {
+    font-size: 13px;
+    color: #374151;
+    margin-bottom: 6px;
+    font-weight: 500;
+}
+
+input,
+textarea,
+select {
+    width: 100%;
+    padding: 12px 12px;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    font-size: 14px;
+    background: #ffffff;
+    transition: all 0.2s ease;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: #111827;
+    box-shadow: 0 0 0 3px rgba(17, 24, 39, 0.08);
+}
+
+textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #111827, #374151);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    margin-top: 10px;
+}
+.submit-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+}
+@media (max-width: 768px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    .app-header-inner {
+        padding: 0 15px;
+    }
+    .app-body {
+        padding: 30px 15px;
+    }
+}
+
+.add-btn {
+    margin-top: 10px;
+    padding: 10px 15px;
+    background: #e5e7eb;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.remove-btn {
+    margin-top: 10px;
+    background: #fee2e2;
+    color: #b91c1c;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.error {
+    color:red;
+}
+
+    .toast-success {
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%) scale(0.95);
+        background: #6fd1a6;
+        color: #000;
+        padding: 12px 25px;
+        border-radius: 6px;
+        display: none;
+        align-items: center;
+        gap: 15px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        z-index: 9999;
+        font-weight: 500;
+    }
+
+    .toast-error {
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%) scale(0.95);
+        background: #f44336;   
+        color: #fff;      
+        padding: 12px 25px;
+        border-radius: 6px;
+        display: none;
+        align-items: center;
+        gap: 15px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        z-index: 9999;
+        font-weight: 500;
+    }
+
+    .toast-success.show {
+        display: flex;
+        animation: fadeScale 3s forwards;
+    }
+
+    .preview-wrapper {
+        max-width: 860px;
+        margin: 2rem auto;
+        padding: 0 1rem 3rem;
+    }
+
+    .preview-actions {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1.25rem;
+    }
+
+    .preview-actions a {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 9px 20px;
+        border-radius: 8px;
+        font-size: 0.875rem;
+        font-weight: 500;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .btn-back {
+        background: white;
+        color: #333;
+        border: 1px solid #ddd;
+    }
+
+    .btn-download {
+        background: #1a1a2e;
+        color: white;
+        border: none;
+    }
+
+    .btn-download:hover { background: #2d3561; }
+
+    .resume-paper {
+        background: white;
+        padding: 48px 52px;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 11pt;
+        color: #000;
+        line-height: 1.4;
+    }
+
+    .r-name {
+        font-size: 22pt;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        margin-bottom: 6px;
+        font-family: Arial, sans-serif;
+    }
+
+    .r-contact {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px 16px;
+        font-size: 9.5pt;
+        font-family: Arial, sans-serif;
+        margin-bottom: 2px;
+    }
+
+    .r-contact a {
+        color: #1155cc;
+        text-decoration: none;
+    }
+
+    .r-contact a:hover { text-decoration: underline; }
+
+    .r-divider {
+        border: none;
+        border-top: 1.5px solid #000;
+        margin: 10px 0;
+    }
+
+    .r-divider-thin {
+        border: none;
+        border-top: 0.5px solid #ccc;
+        margin: 10px 0;
+    }
+
+    /* ── SECTIONS ── */
+    .r-section { margin-bottom: 14px; }
+
+    .r-section-title {
+        font-family: Arial, sans-serif;
+        font-size: 10.5pt;
+        font-weight: 700;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 6px;
+    }
+
+    .r-summary {
+        font-size: 10pt;
+        text-align: justify;
+        line-height: 1.5;
+    }
+
+    .r-skills-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 10pt;
+    }
+
+    .r-skills-table td {
+        padding: 2px 4px;
+        vertical-align: top;
+    }
+
+    .r-skills-table td:first-child {
+        font-weight: 700;
+        white-space: nowrap;
+        padding-right: 10px;
+        width: 100px;
+        font-family: Arial, sans-serif;
+    }
+
+    .r-exp-item { margin-bottom: 10px; }
+
+    .r-exp-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+    }
+
+    .r-exp-title {
+        font-weight: 700;
+        font-family: Arial, sans-serif;
+        font-size: 10.5pt;
+        text-transform: uppercase;
+    }
+
+    .r-exp-date {
+        font-family: Arial, sans-serif;
+        font-size: 10pt;
+        white-space: nowrap;
+    }
+
+    .r-exp-desc {
+        margin: 4px 0 0 0;
+        padding-left: 18px;
+        font-size: 10pt;
+    }
+
+    .r-exp-desc li {
+        margin-bottom: 2px;
+        line-height: 1.45;
+    }
+
+    .r-edu-item { margin-bottom: 8px; }
+
+    .r-edu-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+    }
+
+    .r-edu-institution {
+        font-weight: 700;
+        font-family: Arial, sans-serif;
+        font-size: 10.5pt;
+    }
+
+    .r-edu-location {
+        font-family: Arial, sans-serif;
+        font-size: 10pt;
+    }
+
+    .r-edu-degree {
+        font-size: 10pt;
+    }
+
+    .r-edu-date {
+        font-weight: 700;
+        font-family: Arial, sans-serif;
+        font-size: 10pt;
+    }
+
+    .r-project-item { margin-bottom: 10px; }
+
+    .r-project-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+    }
+
+    .r-project-title {
+        font-weight: 700;
+        font-family: Arial, sans-serif;
+        font-size: 10.5pt;
+    }
+
+    .r-project-title a {
+        color: #1155cc;
+        text-decoration: none;
+    }
+
+    .r-project-date {
+        font-family: Arial, sans-serif;
+        font-size: 10pt;
+    }
+
+    .r-project-desc {
+        margin: 3px 0 0 0;
+        padding-left: 18px;
+        font-size: 10pt;
+        line-height: 1.45;
+    }
+
+    .r-skill-level {
+        display: inline-flex;
+        align-items: center;
+        gap: 16px;
+        flex-wrap: wrap;
+        font-size: 10pt;
+    }
+
+    .r-skill-item { display: flex; align-items: center; gap: 6px; }
+
+    .r-skill-dots { display: flex; gap: 3px; }
+
+    .r-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #ccc;
+        border: 1px solid #999;
+    }
+
+    .r-dot.filled { background: #1a1a2e; border-color: #1a1a2e; }
+
+    .r-achievements {
+        padding-left: 18px;
+        font-size: 10pt;
+        margin: 0;
+    }
+
+    .r-achievements li { margin-bottom: 3px; line-height: 1.45; }
+
+    @media print {
+        body { background: white; }
+        .preview-actions { display: none; }
+        .preview-wrapper { margin: 0; padding: 0; }
+        .resume-paper { box-shadow: none; padding: 32px 40px; }
+    }
+
+    @media (max-width: 768px) {
+        .resume-paper { padding: 28px 20px; }
+        .r-name { font-size: 16pt; }
+        .r-exp-header, .r-edu-header, .r-project-header { flex-direction: column; }
+    }

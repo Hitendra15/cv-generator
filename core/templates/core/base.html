@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}CV Builder{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'core/css/font.css' %}">    
+    <link rel="stylesheet" href="{% static 'core/css/custom.css' %}">
+</head>
+<script src="{% static 'core/js/jquery.js' %}"></script>
+<script src="{% static 'core/js/custom.js' %}"></script>
+<body>
+<header class="app-header">
+    <div class="app-header-inner">
+        <div class="logo">CV Builder</div>
+    </div>
+</header>
+<div class="app-body">
+    <div id="toast" class="toast-success" style="display:none;">
+        <span id="toast-message"></span>
+        <span class="toast-close">&times;</span>
+    </div>
+    {% block body %}{% endblock %}
+</div>
+</body>
+</html>
