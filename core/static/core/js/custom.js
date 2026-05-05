@@ -19,3 +19,7 @@
         $('#timelineDrawer').removeClass('open');
         $('body').removeClass('drawer-open');
     }
+
+    function printResume() {
+        window.print();
+    }

@@ -51,7 +51,7 @@ class ExperienceAdmin(admin.ModelAdmin):
 
 @admin.register(Skill)
 class SkillAdmin(admin.ModelAdmin):
-    list_display = ('name', 'level')
+    list_display = ('name', 'category')
 
 
 @admin.register(Project)
