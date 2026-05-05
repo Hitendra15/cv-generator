@@ -181,8 +181,8 @@
                                 {{ form.name }}
                             </div>
                             <div class="input-group">
-                                {{ form.level.label_tag }}
-                                {{ form.level }}
+                                {{ form.category.label_tag }}
+                                {{ form.category }}
                             </div>
                         </div>
                         <button type="button" class="remove-btn">Remove</button>
@@ -201,8 +201,8 @@
                             {{ skill_formset.empty_form.name }}
                         </div>
                         <div class="input-group">
-                            {{ skill_formset.empty_form.level.label_tag }}
-                            {{ skill_formset.empty_form.level }}
+                            {{ skill_formset.empty_form.category.label_tag }}
+                            {{ skill_formset.empty_form.category }}
                         </div>
                     </div>
                     <button type="button" class="remove-btn">Remove</button>
@@ -412,7 +412,17 @@
         $('#skill-container .skill-form').each(function() {
             let $card = $(this);
             let skillName = $card.find('[name$="-name"]').val();
-            if (!skillName || !skillName.trim()) { showError($card.find('[name$="-name"]'), 'Skill name is required'); isValid = false; }
+            let category = $card.find('[name$="-category"]').val();
+            skillName = skillName ? skillName.trim() : '';
+            category = category ? category.trim() : '';
+            if (skillName && !category) {
+                showError($card.find('[name$="-category"]'), 'Category is required');
+                isValid = false;
+            }
+            if (category && !skillName) {
+                showError($card.find('[name$="-name"]'), 'Skill name is required');
+                isValid = false;
+            }
         });
         $('#project-container .project-form').each(function() {
             let $card = $(this);

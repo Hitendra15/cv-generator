@@ -4,6 +4,7 @@ from .models import Resume, Education, Experience, Skill,Project,Certification
 from .forms import ResumeForm, EducationForm, ExperienceForm, SkillForm,ProjectForm,CertificationForm
 from django.http import JsonResponse
 from django.urls import reverse
+from collections import defaultdict
 
 def create_resume(request):
     EducationFormSet = inlineformset_factory(Resume, Education, form=EducationForm, extra=1)
@@ -13,11 +14,11 @@ def create_resume(request):
     CertificationFormSet = inlineformset_factory(Resume, Certification, form=CertificationForm, extra=1)
     if request.method == 'POST':
         resume_form = ResumeForm(request.POST)
-        education_formset = EducationFormSet(request.POST)
-        experience_formset = ExperienceFormSet(request.POST)
-        skill_formset = SkillFormSet(request.POST)
-        project_formset = ProjectFormSet(request.POST)
-        certification_formset = CertificationFormSet(request.POST)
+        education_formset = EducationFormSet(request.POST,prefix='education')
+        experience_formset = ExperienceFormSet(request.POST,prefix='experience')
+        skill_formset = SkillFormSet(request.POST,prefix='skill')
+        project_formset = ProjectFormSet(request.POST,prefix='project')
+        certification_formset = CertificationFormSet(request.POST,prefix='certification')
         if (
             resume_form.is_valid() and
             education_formset.is_valid() and
@@ -69,11 +70,11 @@ def create_resume(request):
             }, status=400)
     else:
         resume_form = ResumeForm()
-        education_formset = EducationFormSet()
-        experience_formset = ExperienceFormSet()
-        skill_formset = SkillFormSet()
-        project_formset = ProjectFormSet()
-        certification_formset = CertificationFormSet()
+        education_formset = EducationFormSet(prefix='education')
+        experience_formset = ExperienceFormSet(prefix='experience')
+        skill_formset = SkillFormSet(prefix='skill')
+        project_formset = ProjectFormSet(prefix='project')
+        certification_formset = CertificationFormSet(prefix='certification')
     return render(request, 'resume/create.html', {
         'resume_form': resume_form,
         'education_formset': education_formset,
@@ -85,4 +86,7 @@ def create_resume(request):
         
 def preview_resume(request,slug):
     resume = get_object_or_404(Resume,slug=slug)
-    return render(request,'resume/preview.html',{'resume':resume})
+    skills_grouped = defaultdict(list)
+    for skill in resume.skills.all():
+        skills_grouped[skill.category].append(skill.name)
+    return render(request,'resume/preview.html',{'resume':resume,'skills_grouped': dict(skills_grouped)})

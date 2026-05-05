@@ -133,14 +133,14 @@ class SkillForm(forms.ModelForm):
         exclude = ('resume',)
         labels = {
             'name': 'Skill',
-            'level': 'Level',
+            'category': 'Category',
         }
         widgets = {
             'name': forms.TextInput(attrs={
                 'class': 'input',
                 'placeholder': 'e.g. Python, Django, React'
             }),
-            'level': forms.Select(attrs={'class':'dropdown'})
+            'category': forms.Select(attrs={'class':'dropdown'})
         }
 
 class ProjectForm(forms.ModelForm):

@@ -1,202 +1,202 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Inter', sans-serif;
-    background: #f6f7fb;
-    color: #111827;
-    line-height: 1.5;
-}
-
-.app-header {
-    background: #ffffff;
-    border-bottom: 1px solid #e5e7eb;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-}
-
-.app-header-inner {
-    max-width: 1100px;
-    margin: auto;
-    height: 70px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
-}
-
-.logo {
-    font-size: 18px;
-    font-weight: 600;
-    letter-spacing: 0.3px;
-}
-
-.save-btn {
-    background: #111827;
-    color: #fff;
-    border: none;
-    padding: 9px 18px;
-    border-radius: 8px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.save-btn:hover {
-    background: #1f2937;
-}
-
-.app-body {
-    padding: 50px 20px;
-}
-
-.page {
-    max-width: 900px;
-    margin: auto;
-}
-
-.wrapper {
-    width: 100%;
-}
-
-h1 {
-    font-size: 30px;
-    font-weight: 600;
-    margin-bottom: 8px;
-}
-
-.subtitle {
-    color: #6b7280;
-    margin-bottom: 35px;
-    font-size: 15px;
-}
-
-.card-section {
-    background: #ffffff;
-    border-radius: 14px;
-    padding: 28px;
-    margin-bottom: 25px;
-    border: 1px solid #f1f1f1;
-    transition: all 0.2s ease;
-}
-
-.card-section:hover {
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-}
-
-.card-section h3 {
-    font-size: 18px;
-    margin-bottom: 20px;
-    font-weight: 600;
-}
-
-.mini-card {
-    background: #f9fafb;
-    padding: 16px;
-    border-radius: 10px;
-    margin-bottom: 12px;
-    border: 1px solid #f0f0f0;
-}
-
-.form-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 18px;
-}
-
-.input-group {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 15px;
-}
-
-label {
-    font-size: 13px;
-    color: #374151;
-    margin-bottom: 6px;
-    font-weight: 500;
-}
-
-input,
-textarea,
-select {
-    width: 100%;
-    padding: 12px 12px;
-    border-radius: 8px;
-    border: 1px solid #e5e7eb;
-    font-size: 14px;
-    background: #ffffff;
-    transition: all 0.2s ease;
-}
-
-input:focus,
-textarea:focus,
-select:focus {
-    outline: none;
-    border-color: #111827;
-    box-shadow: 0 0 0 3px rgba(17, 24, 39, 0.08);
-}
-
-textarea {
-    min-height: 110px;
-    resize: vertical;
-}
-
-.submit-btn {
-    width: 100%;
-    padding: 14px;
-    background: linear-gradient(135deg, #111827, #374151);
-    color: #fff;
-    border: none;
-    border-radius: 10px;
-    font-size: 15px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.25s ease;
-    margin-top: 10px;
-}
-.submit-btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 12px 25px rgba(0,0,0,0.1);
-}
-@media (max-width: 768px) {
-    .form-grid {
-        grid-template-columns: 1fr;
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
     }
+
+    body {
+        font-family: 'Inter', sans-serif;
+        background: #f6f7fb;
+        color: #111827;
+        line-height: 1.5;
+    }
+
+    .app-header {
+        background: #ffffff;
+        border-bottom: 1px solid #e5e7eb;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+
     .app-header-inner {
-        padding: 0 15px;
+        max-width: 1100px;
+        margin: auto;
+        height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
     }
+
+    .logo {
+        font-size: 18px;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+    }
+
+    .save-btn {
+        background: #111827;
+        color: #fff;
+        border: none;
+        padding: 9px 18px;
+        border-radius: 8px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .save-btn:hover {
+        background: #1f2937;
+    }
+
     .app-body {
-        padding: 30px 15px;
+        padding: 50px 20px;
     }
-}
 
-.add-btn {
-    margin-top: 10px;
-    padding: 10px 15px;
-    background: #e5e7eb;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-}
+    .page {
+        max-width: 900px;
+        margin: auto;
+    }
 
-.remove-btn {
-    margin-top: 10px;
-    background: #fee2e2;
-    color: #b91c1c;
-    border: none;
-    padding: 6px 10px;
-    border-radius: 6px;
-    cursor: pointer;
-}
+    .wrapper {
+        width: 100%;
+    }
 
-.error {
-    color:red;
-}
+    h1 {
+        font-size: 30px;
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+
+    .subtitle {
+        color: #6b7280;
+        margin-bottom: 35px;
+        font-size: 15px;
+    }
+
+    .card-section {
+        background: #ffffff;
+        border-radius: 14px;
+        padding: 28px;
+        margin-bottom: 25px;
+        border: 1px solid #f1f1f1;
+        transition: all 0.2s ease;
+    }
+
+    .card-section:hover {
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    }
+
+    .card-section h3 {
+        font-size: 18px;
+        margin-bottom: 20px;
+        font-weight: 600;
+    }
+
+    .mini-card {
+        background: #f9fafb;
+        padding: 16px;
+        border-radius: 10px;
+        margin-bottom: 12px;
+        border: 1px solid #f0f0f0;
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+    }
+
+    .input-group {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 15px;
+    }
+
+    label {
+        font-size: 13px;
+        color: #374151;
+        margin-bottom: 6px;
+        font-weight: 500;
+    }
+
+    input,
+    textarea,
+    select {
+        width: 100%;
+        padding: 12px 12px;
+        border-radius: 8px;
+        border: 1px solid #e5e7eb;
+        font-size: 14px;
+        background: #ffffff;
+        transition: all 0.2s ease;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+        outline: none;
+        border-color: #111827;
+        box-shadow: 0 0 0 3px rgba(17, 24, 39, 0.08);
+    }
+
+    textarea {
+        min-height: 110px;
+        resize: vertical;
+    }
+
+    .submit-btn {
+        width: 100%;
+        padding: 14px;
+        background: linear-gradient(135deg, #111827, #374151);
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        font-size: 15px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.25s ease;
+        margin-top: 10px;
+    }
+    .submit-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+    }
+    @media (max-width: 768px) {
+        .form-grid {
+            grid-template-columns: 1fr;
+        }
+        .app-header-inner {
+            padding: 0 15px;
+        }
+        .app-body {
+            padding: 30px 15px;
+        }
+    }
+
+    .add-btn {
+        margin-top: 10px;
+        padding: 10px 15px;
+        background: #e5e7eb;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+
+    .remove-btn {
+        margin-top: 10px;
+        background: #fee2e2;
+        color: #b91c1c;
+        border: none;
+        padding: 6px 10px;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+
+    .error {
+        color:red;
+    }
 
     .toast-success {
         position: fixed;
@@ -287,17 +287,17 @@ textarea {
     }
 
     .r-name {
-        font-size: 22pt;
-        font-weight: 700;
+        font-size: 18pt;
+        font-weight: 600;
         letter-spacing: 0.5px;
-        margin-bottom: 6px;
+        margin-bottom: 10px;
         font-family: Arial, sans-serif;
     }
 
     .r-contact {
         display: flex;
         flex-wrap: wrap;
-        gap: 6px 16px;
+        gap: 4px 12px;
         font-size: 9.5pt;
         font-family: Arial, sans-serif;
         margin-bottom: 2px;
@@ -322,7 +322,6 @@ textarea {
         margin: 10px 0;
     }
 
-    /* ── SECTIONS ── */
     .r-section { margin-bottom: 14px; }
 
     .r-section-title {
@@ -365,20 +364,24 @@ textarea {
     .r-exp-header {
         display: flex;
         justify-content: space-between;
-        align-items: baseline;
+        align-items: flex-start;
+    }
+
+    .r-exp-title {
+        flex: 1;
+        padding-right: 10px;
+    }
+
+    .r-exp-date {
+        white-space: nowrap;
+        text-align: right;
     }
 
     .r-exp-title {
         font-weight: 700;
         font-family: Arial, sans-serif;
         font-size: 10.5pt;
-        text-transform: uppercase;
-    }
-
-    .r-exp-date {
-        font-family: Arial, sans-serif;
-        font-size: 10pt;
-        white-space: nowrap;
+        text-transform: none;
     }
 
     .r-exp-desc {
@@ -397,7 +400,17 @@ textarea {
     .r-edu-header {
         display: flex;
         justify-content: space-between;
-        align-items: baseline;
+        align-items: flex-start;
+    }
+
+    .r-edu-degree {
+        flex: 1;
+        padding-right: 10px;
+    }
+
+    .r-edu-date {
+        white-space: nowrap;
+        text-align: right;
     }
 
     .r-edu-institution {
@@ -412,12 +425,6 @@ textarea {
     }
 
     .r-edu-degree {
-        font-size: 10pt;
-    }
-
-    .r-edu-date {
-        font-weight: 700;
-        font-family: Arial, sans-serif;
         font-size: 10pt;
     }
 
@@ -493,4 +500,70 @@ textarea {
         .resume-paper { padding: 28px 20px; }
         .r-name { font-size: 16pt; }
         .r-exp-header, .r-edu-header, .r-project-header { flex-direction: column; }
+    }
+
+    .r-skill-summary {
+        list-style: disc;
+        padding-left: 20px;
+    }
+
+    .r-skill-summary li {
+        margin-bottom: 6px;
+        font-size: 10pt;
+    }
+
+    @media print {
+        body * {
+            visibility: hidden;
+        }
+        #resumePaper, #resumePaper * {
+            visibility: visible;
+        }
+        #resumePaper {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+        }
+        @page {
+            margin: 10mm;
+        }
+    }
+
+    @media print {
+        body {
+            background: white;
+        }
+        .resume-paper {
+            box-shadow: none;
+        }
+    }
+
+    .btn-print {
+        background: #fff;
+        color: #1a1a2e;
+        border: 1px solid #1a1a2e;
+        padding: 9px 18px;
+        border-radius: 8px;
+        font-size: 0.875rem;
+        font-weight: 500;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        transition: all 0.2s ease;
+    }
+
+    .btn-print:hover {
+        background: #1a1a2e;
+        color: #fff;
+    }
+
+    .btn-print:active {
+        transform: scale(0.97);
+    }
+
+    .btn-print:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(26, 26, 46, 0.2);
     }

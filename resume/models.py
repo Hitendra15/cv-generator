@@ -8,7 +8,7 @@ class Resume(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField()
     phone = models.CharField(max_length=15)
-    slug = models.SlugField(unique=True,null=True,blank=True)
+    slug = models.SlugField(unique=True,null=True,blank=True,db_index=True)
     summary = models.TextField()
     linkedin = models.URLField(null=True, blank=True)
     github = models.URLField(null=True, blank=True)
@@ -55,17 +55,16 @@ class Experience(models.Model):
         return self.company
     
 class Skill(models.Model):
+    CATEGORY_CHOICES = [
+        ('Languages', 'Languages'),
+        ('Databases', 'Databases'),
+        ('Tools', 'Tools'),
+        ('Platforms', 'Platforms'),
+        ('Others', 'Others'),
+    ]
     resume = models.ForeignKey(Resume, on_delete=models.CASCADE, related_name='skills')
     name = models.CharField(max_length=100)
-    level = models.CharField(
-        max_length=50,
-        choices=[
-            ('Beginner', 'Beginner'),
-            ('Intermediate', 'Intermediate'),
-            ('Expert', 'Expert')
-        ],
-        default='Intermediate'
-    )
+    category = models.CharField(max_length=50, choices=CATEGORY_CHOICES,blank=True,null=True)
 
     def __str__(self):
         return self.name
