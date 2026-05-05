@@ -1,0 +1,497 @@
+{% extends 'core/base.html' %}
+{% block body %}
+<div class="page">
+    <div class="wrapper">
+        <h1>Create Resume</h1>
+        <p class="subtitle">Build a professional CV in minutes</p>
+        <form method="POST" novalidate>
+            {% csrf_token %}
+            <div class="card-section">
+                <h3>Personal Details</h3>
+                <div class="form-grid">
+                    <div class="input-group">
+                        {{ resume_form.name.label_tag }}
+                        {{ resume_form.name }}
+                        {% for error in resume_form.name.errors %}
+                            <span class="error">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="input-group">
+                        {{ resume_form.title.label_tag }}
+                        {{ resume_form.title }}
+                        {% for error in resume_form.title.errors %} 
+                            <span class="error">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="input-group">
+                        {{ resume_form.email.label_tag }}
+                        {{ resume_form.email }}
+                        {% for error in resume_form.email.errors %}
+                            <span class="error">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="input-group">
+                        {{ resume_form.phone.label_tag }}
+                        {{ resume_form.phone }}
+                        {% for error in resume_form.phone.errors %}
+                            <span class="error">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="input-group">
+                    {{ resume_form.summary.label_tag }}
+                    {{ resume_form.summary }}
+                    {% for error in resume_form.summary.errors %}
+                        <span class="error">{{ error }}</span>
+                    {% endfor %}
+                </div>
+                <div class="input-group">
+                    {{ resume_form.linkedin.label_tag }}
+                    {{ resume_form.linkedin }}
+                    {% for error in resume_form.linkedin.errors %}
+                        <span class="error">{{ error }}</span>
+                    {% endfor %}
+                </div>
+                <div class="input-group">
+                    {{ resume_form.github.label_tag }}
+                    {{ resume_form.github }}
+                    {% for error in resume_form.github.errors %}
+                        <span class="error">{{ error }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="card-section">
+                <h3>Education</h3>
+                {{ education_formset.management_form }}
+                {% for form in education_formset %}
+                <div class="mini-card">
+                    <div class="form-grid">
+                        <div class="input-group">
+                            {{ form.degree.label_tag }}
+                            {{ form.degree }}
+                        </div>
+                        <div class="input-group">
+                            {{ form.institution.label_tag }}
+                            {{ form.institution }}
+                        </div>
+                        <div class="input-group">
+                            {{ form.start_date.label_tag }}
+                            {{ form.start_date }}
+                        </div>
+                        <div class="input-group">
+                            {{ form.end_date.label_tag }}
+                            {{ form.end_date }}
+                        </div>
+                        <div class="input-group">
+                            {{ form.field_of_study.label_tag }}
+                            {{ form.field_of_study }}
+                        </div>
+                        <div class="input-group">
+                            {{ form.grade.label_tag }}
+                            {{ form.grade }}
+                        </div>
+                        <div class="input-group">
+                            {{ form.location.label_tag }}
+                            {{ form.location }}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="card-section">
+                <h3>Experience</h3>
+                {{ experience_formset.management_form }}
+                <div id="experience-container">
+                    {% for form in experience_formset %}
+                    <div class="mini-card experience-form">
+                        <div class="form-grid">
+                            <div class="input-group">
+                                {{ form.job_title.label_tag }}
+                                {{ form.job_title }}
+                            </div>
+                            <div class="input-group">
+                                {{ form.company.label_tag }}
+                                {{ form.company }}
+                            </div>
+                            <div class="input-group">
+                                {{ form.description.label_tag }}
+                                {{ form.description }}
+                            </div>
+                            <div class="input-group">
+                                {{ form.start_date.label_tag }}
+                                {{ form.start_date }}
+                            </div>
+                            <div class="input-group">
+                                {{ form.end_date.label_tag }}
+                                {{ form.end_date }}
+                            </div>
+                            <div class="input-group">
+                                {{ form.location.label_tag }}
+                                {{ form.location }}
+                            </div>
+                        </div>
+                        <button type="button" class="remove-btn">Remove</button>
+                    </div>
+                    {% endfor %}
+                </div>
+                <button type="button" class="add-btn" data-type="experience">
+                    + Add Experience
+                </button>
+            </div>
+            <div id="empty-experience-form" style="display:none;">
+                <div class="mini-card experience-form">
+                    <div class="form-grid">
+                        <div class="input-group">
+                            {{ experience_formset.empty_form.job_title.label_tag }}
+                            {{ experience_formset.empty_form.job_title }}
+                        </div>
+                        <div class="input-group">
+                            {{ experience_formset.empty_form.company.label_tag }}
+                            {{ experience_formset.empty_form.company }}
+                        </div>
+                        <div class="input-group">
+                            {{ experience_formset.empty_form.description.label_tag }}
+                            {{ experience_formset.empty_form.description }}
+                        </div>
+                        <div class="input-group">
+                            {{ experience_formset.empty_form.start_date.label_tag }}
+                            {{ experience_formset.empty_form.start_date }}
+                        </div>
+                        <div class="input-group">
+                            {{ experience_formset.empty_form.end_date.label_tag }}
+                            {{ experience_formset.empty_form.end_date }}
+                        </div>
+                        <div class="input-group">
+                            {{ experience_formset.empty_form.location.label_tag }}
+                            {{ experience_formset.empty_form.location }}
+                        </div>
+                    </div>
+                    <button type="button" class="remove-btn">Remove</button>
+                </div>
+            </div>
+            <div class="card-section">
+                <h3>Skills</h3>
+                {{ skill_formset.management_form }}
+                <div id="skill-container">
+                    {% for form in skill_formset %}
+                    <div class="mini-card skill-form">
+                        <div class="form-grid">
+                            <div class="input-group">
+                                {{ form.name.label_tag }}
+                                {{ form.name }}
+                            </div>
+                            <div class="input-group">
+                                {{ form.level.label_tag }}
+                                {{ form.level }}
+                            </div>
+                        </div>
+                        <button type="button" class="remove-btn">Remove</button>
+                    </div>
+                    {% endfor %}
+                </div>
+                <button type="button" class="add-btn" data-type="skill">
+                    + Add Skill
+                </button>
+            </div>
+            <div id="empty-skill-form" style="display:none;">
+                <div class="mini-card skill-form">
+                    <div class="form-grid">
+                        <div class="input-group">
+                            {{ skill_formset.empty_form.name.label_tag }}
+                            {{ skill_formset.empty_form.name }}
+                        </div>
+                        <div class="input-group">
+                            {{ skill_formset.empty_form.level.label_tag }}
+                            {{ skill_formset.empty_form.level }}
+                        </div>
+                    </div>
+                    <button type="button" class="remove-btn">Remove</button>
+                </div>
+            </div>
+            <div class="card-section">
+                <h3>Projects</h3>
+                {{ project_formset.management_form }}
+                <div id="project-container">
+                    {% for form in project_formset %}
+                    <div class="mini-card project-form">
+                        <div class="input-group">
+                            {{ form.title.label_tag }}
+                            {{ form.title }}
+                        </div>
+                        <div class="input-group">
+                            {{ form.description.label_tag }}
+                            {{ form.description }}
+                        </div>
+                        <div class="input-group">
+                            {{ form.link.label_tag }}
+                            {{ form.link }}
+                            {% for error in form.link.errors %}
+                                <span class="error">{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        <button type="button" class="remove-btn">Remove</button>
+                    </div>
+                    {% endfor %}
+                </div>
+                <button type="button" class="add-btn" data-type="project">
+                    + Add Project
+                </button>
+            </div>
+            <div id="empty-project-form" style="display:none;">
+                <div class="mini-card project-form">
+                    <div class="input-group">
+                        {{ project_formset.empty_form.title.label_tag }}
+                        {{ project_formset.empty_form.title }}
+                    </div>
+                    <div class="input-group">
+                        {{ project_formset.empty_form.description.label_tag }}
+                        {{ project_formset.empty_form.description }}
+                    </div>
+                    <div class="input-group">
+                        {{ project_formset.empty_form.link.label_tag }}
+                        {{ project_formset.empty_form.link }}
+                    </div>
+                    <button type="button" class="remove-btn">Remove</button>
+                </div>
+            </div>
+            <div class="card-section">
+                <h3>Certifications</h3>
+                {{ certification_formset.management_form }}
+                <div id="certification-container">
+                    {% for form in certification_formset %}
+                    <div class="mini-card cert-form">
+                        <div class="form-grid">
+                            <div class="input-group">
+                                {{ form.name.label_tag }}
+                                {{ form.name }}
+                            </div>
+                            <div class="input-group">
+                                {{ form.organization.label_tag }}
+                                {{ form.organization }}
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            {{ form.date.label_tag }}
+                            {{ form.date }}
+                        </div>
+                        <button type="button" class="remove-btn">Remove</button>
+                    </div>
+                    {% endfor %}
+                </div>
+                <button type="button" class="add-btn" data-type="certification">
+                    + Add Certification
+                </button>
+            </div>
+            <div id="empty-certification-form" style="display:none;">
+                <div class="mini-card cert-form">
+                    <div class="input-group">
+                        {{ certification_formset.empty_form.name.label_tag }}
+                        {{ certification_formset.empty_form.name }}
+                    </div>
+                    <div class="input-group">
+                        {{ certification_formset.empty_form.organization.label_tag }}
+                        {{ certification_formset.empty_form.organization }}
+                    </div>
+                    <div class="input-group">
+                        {{ certification_formset.empty_form.date.label_tag }}
+                        {{ certification_formset.empty_form.date }}
+                    </div>
+                    <button type="button" class="remove-btn">Remove</button>
+                </div>
+            </div>
+            <button type="submit" class="submit-btn generate-resume">
+                Generate Resume
+            </button>
+        </form>
+    </div>
+</div>
+<script>
+    $(document).ready(function(){
+        const formsetConfig = {
+            experience: {
+                container: '#experience-container',
+                empty: '#empty-experience-form',
+                total: '#id_experience-TOTAL_FORMS'
+            },
+            skill: {
+                container: '#skill-container',
+                empty: '#empty-skill-form',
+                total: '#id_skill-TOTAL_FORMS'
+            },
+            project: {
+                container: '#project-container',
+                empty: '#empty-project-form',
+                total: '#id_project-TOTAL_FORMS'
+            },
+            certification: {
+                container: '#certification-container',
+                empty: '#empty-certification-form',
+                total: '#id_certification-TOTAL_FORMS'
+            }
+        };
+        $('.add-btn').on('click', function(){
+            let type = $(this).data('type');
+            let config = formsetConfig[type];
+            let $container = $(config.container);
+            let emptyForm = $(config.empty).html();
+            let $total = $(config.total);
+            let index = parseInt($total.val());
+            let newForm = emptyForm.replace(/__prefix__/g, index);
+            $container.append(newForm);
+            $total.val(index + 1);
+        });
+        $(document).on('click', '.remove-btn', function(){
+            $(this).closest('.mini-card').remove();
+        });
+    });
+
+    let $form = null;
+
+    function showError($el, msg) {
+        $el.addClass('input-error');
+        $el.after(`<span class="error" style="color:red;font-size:12px;margin-top:4px;display:block;">${msg}</span>`);
+    }
+
+    $(document).on('submit', 'form', function(e) {
+        e.preventDefault();
+        $form = $(this);
+        let isValid = true;
+        $form.find('.error').remove();
+        $form.find('.input, .textarea, .dropdown').removeClass('input-error');
+        let name = $form.find('[name="name"]').val();
+        let title = $form.find('[name="title"]').val();
+        let email = $form.find('[name="email"]').val();
+        let phone = $form.find('[name="phone"]').val();
+        let summary = $form.find('[name="summary"]').val();
+        if (!name || !name.trim()) {
+            showError($form.find('[name="name"]'), 'Full name is required');
+            isValid = false;
+        }
+        if (!title || !title.trim()) {
+            showError($form.find('[name="title"]'), 'Professional title is required');
+            isValid = false;
+        }
+        if (!email || !email.trim()) {
+            showError($form.find('[name="email"]'), 'Email is required');
+            isValid = false;
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            showError($form.find('[name="email"]'), 'Enter a valid email address');
+            isValid = false;
+        }
+        if (!phone || !phone.trim()) {
+            showError($form.find('[name="phone"]'), 'Phone number is required');
+            isValid = false;
+        } else if (!/^\d{10}$/.test(phone.trim())) {
+            showError($form.find('[name="phone"]'), 'Enter a valid 10-digit phone number');
+            isValid = false;
+        }
+        if (!summary || !summary.trim()) {
+            showError($form.find('[name="summary"]'), 'Professional summary is required');
+            isValid = false;
+        }
+        $form.find('.mini-card').filter(function() {
+            return $(this).find('[name*="degree"]').length > 0;
+        }).each(function() {
+            let $card = $(this);
+            let degree = $card.find('[name$="-degree"]').val();
+            let institution = $card.find('[name$="-institution"]').val();
+            let startDate = $card.find('[name$="-start_date"]').val();
+            if (!degree || !degree.trim()) { showError($card.find('[name$="-degree"]'), 'Degree is required'); isValid = false; }
+            if (!institution || !institution.trim()) { showError($card.find('[name$="-institution"]'), 'Institution is required'); isValid = false; }
+            if (!startDate) { showError($card.find('[name$="-start_date"]'), 'Start date is required'); isValid = false; }
+        });
+        $('#experience-container .experience-form').each(function() {
+            let $card = $(this);
+            let jobTitle = $card.find('[name$="-job_title"]').val();
+            let company = $card.find('[name$="-company"]').val();
+            let startDate = $card.find('[name$="-start_date"]').val();
+            if (!jobTitle || !jobTitle.trim()) { showError($card.find('[name$="-job_title"]'), 'Job title is required'); isValid = false; }
+            if (!company || !company.trim()) { showError($card.find('[name$="-company"]'), 'Company is required'); isValid = false; }
+            if (!startDate) { showError($card.find('[name$="-start_date"]'), 'Start date is required'); isValid = false; }
+        });
+        $('#skill-container .skill-form').each(function() {
+            let $card = $(this);
+            let skillName = $card.find('[name$="-name"]').val();
+            if (!skillName || !skillName.trim()) { showError($card.find('[name$="-name"]'), 'Skill name is required'); isValid = false; }
+        });
+        $('#project-container .project-form').each(function() {
+            let $card = $(this);
+            let projectTitle = $card.find('[name$="-title"]').val();
+            let link = $card.find('[name$="-link"]').val();
+            if (!projectTitle || !projectTitle.trim()) { showError($card.find('[name$="-title"]'), 'Project title is required'); isValid = false; }
+            if (link && link.trim() && !/^https?:\/\/.+/.test(link.trim())) { showError($card.find('[name$="-link"]'), 'Enter a valid URL'); isValid = false; }
+        });
+        $('#certification-container .cert-form').each(function() {
+            let $card = $(this);
+            let certName = $card.find('[name$="-name"]').val();
+            if (!certName || !certName.trim()) { showError($card.find('[name$="-name"]'), 'Certification name is required'); isValid = false; }
+        });
+        if (!isValid) {
+            $('html, body').animate({
+                scrollTop: $form.find('.error').first().offset().top - 100
+            }, 400);
+            return;
+        }
+        let $submitBtn = $form.find('.submit-btn');
+        $submitBtn.prop('disabled', true).text('Generating...');
+        $.ajax({
+            url: $form.attr('action') || window.location.href,
+            type: 'POST',
+            data: $form.serialize(),
+            headers: { 'X-CSRFToken': $('[name=csrfmiddlewaretoken]').val() },
+            success: function(res) {
+                if (res.status === 'success') {
+                    window.location.href = res.redirect_url;
+                } else if (res.status === 'error') {
+                    $.each(res.errors, function(field, msgs) {
+                        let $el = $form.find('[name="' + field + '"]');
+                        if ($el.length) showError($el, msgs[0]);
+                    });
+                    $('html, body').animate({
+                        scrollTop: $form.find('.error').first().offset().top - 100
+                    }, 400);
+                    $submitBtn.prop('disabled', false).text('Generate Resume');
+                }
+            },
+            error: function(xhr) {
+                let res = xhr.responseJSON;
+                if (res && res.errors) {
+                    $.each(res.errors, function(field, msgs) {
+                        let $el = $form.find('[name="' + field + '"]');
+                        if (!$el.length) {
+                            $el = $form.find('[name$="-' + field.split('-').pop() + '"]').first();
+                        }
+                        if ($el.length) showError($el, msgs[0]);
+                    });
+                    $('html, body').animate({
+                        scrollTop: $form.find('.error').first().offset().top - 100
+                    }, 400);
+                }
+                $submitBtn.prop('disabled', false).text('Generate Resume');
+            }
+        });
+    });
+
+    $(document).on('input change', '.input, .textarea, .dropdown', function() {
+        let $el = $(this);
+        let val = $el.val().trim();
+        let name = $el.attr('name');
+        let hasError = false;
+        if (name === 'phone') {
+            if (!val || !/^\d{10}$/.test(val)) hasError = true;
+        } else if (name === 'email') {
+            if (!val || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) hasError = true;
+        } else if (name && name.endsWith('-link')) {
+            if (val && !/^https?:\/\/.+/.test(val)) hasError = true;
+        } else {
+            if (!val) hasError = true;
+        }
+        if (!hasError) {
+            $el.removeClass('input-error');
+            $el.next('.error').remove();
+            $el.siblings('.error').remove();
+            $el.closest('.input-group').find('.error').remove();
+        }
+    });
+</script>
+{% endblock %}

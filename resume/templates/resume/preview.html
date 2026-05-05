@@ -1,0 +1,151 @@
+{% extends 'core/base.html' %}
+{% block title %}{{ resume.name }} — Resume Preview {% endblock %}
+{% block body %}
+<div class="preview-wrapper">
+    <div class="preview-actions">
+        <a href="javascript:history.back()" class="btn-back">
+            ← Back
+        </a>
+        <a href="" class="btn-download">
+            Dashboard
+        </a>
+    </div>
+    <div class="resume-paper" id="resumePaper">
+        <div class="r-name">{{ resume.name|upper }}</div>
+        <div class="r-contact">
+            {% if resume.linkedin %}
+                <span>LinkedIn: <a href="{{ resume.linkedin }}" target="_blank">{{ resume.linkedin }}</a></span>
+            {% endif %}
+            {% if resume.email %}
+                <span>Email: <a href="mailto:{{ resume.email }}">{{ resume.email }}</a></span>
+            {% endif %}
+            {% if resume.github %}
+                <span><a href="{{ resume.github }}" target="_blank">{{ resume.github }}</a></span>
+            {% endif %}
+            {% if resume.phone %}
+                <span>Mobile: {{ resume.phone }}</span>
+            {% endif %}
+        </div>
+        <hr class="r-divider">
+        {% if resume.summary %}
+        <div class="r-section">
+            <div class="r-section-title">Professional Summary</div>
+            <hr class="r-divider-thin">
+            <p class="r-summary">{{ resume.summary }}</p>
+        </div>
+        {% endif %}
+        {% if resume.skills.all %}
+        <div class="r-section">
+            <div class="r-section-title">Skills Summary</div>
+            <hr class="r-divider-thin">
+            <div class="r-skill-level">
+            {% for skill in resume.skills.all %}
+            <div class="r-skill-item">
+                <span>{{ skill.name }}</span>
+                <div class="r-skill-dots">
+                    {% for i in "12345" %}
+                        {% if skill.level == 'Expert' %}
+                            <div class="r-dot filled"></div>
+                        {% elif skill.level == 'Intermediate' and forloop.counter <= 3 %}
+                            <div class="r-dot filled"></div>
+                        {% elif skill.level == 'Beginner' and forloop.counter <= 1 %}
+                            <div class="r-dot filled"></div>
+                        {% else %}
+                            <div class="r-dot"></div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+        {% if resume.experiences.all %}
+        <div class="r-section">
+            <div class="r-section-title">Work Experience</div>
+            <hr class="r-divider-thin">
+            {% for exp in resume.experiences.all %}
+            <div class="r-exp-item">
+                <div class="r-exp-header">
+                    <span class="r-exp-title">{{ exp.job_title }} | {{ exp.company }}</span>
+                    <span class="r-exp-date">
+                        {{ exp.start_date|date:"M Y" }} —
+                        {% if exp.end_date %}{{ exp.end_date|date:"M Y" }}{% else %}Present{% endif %}
+                    </span>
+                </div>
+                {% if exp.description %}
+                <ul class="r-exp-desc">
+                    {% for line in exp.description.splitlines %}
+                        {% if line.strip %}
+                        <li>{{ line|cut:"• "|cut:"- " }}</li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+            {% if not forloop.last %}<hr class="r-divider-thin">{% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% if resume.educations.all %}
+        <div class="r-section">
+            <div class="r-section-title">Education</div>
+            <hr class="r-divider-thin">
+            {% for edu in resume.educations.all %}
+            <div class="r-edu-item">
+                <div class="r-edu-header">
+                    <span class="r-edu-institution">{{ edu.institution }}</span>
+                    <span class="r-edu-location">{{ edu.location|default:"" }}</span>
+                </div>
+                <div class="r-edu-header">
+                    <span class="r-edu-degree">
+                        {{ edu.degree }}
+                        {% if edu.field_of_study %} – {{ edu.field_of_study }}{% endif %}
+                        {% if edu.grade %} &nbsp;|&nbsp; GPA: {{ edu.grade }}{% endif %}
+                    </span>
+                    <span class="r-edu-date">
+                        {{ edu.start_date|date:"M Y" }} - {{ edu.end_date|date:"M Y" }}
+                    </span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% if resume.projects.all or resume.certifications.all %}
+        <div class="r-section">
+            <div class="r-section-title">Certificates &amp; Projects</div>
+            <hr class="r-divider-thin">
+            {% for project in resume.projects.all %}
+            <div class="r-project-item">
+                <div class="r-project-header">
+                    <span class="r-project-title">
+                        {{ project.title }}
+                        {% if project.link %}
+                            | <a href="{{ project.link }}" target="_blank">PROJECT LINK</a>
+                        {% endif %}
+                    </span>
+                </div>
+                {% if project.description %}
+                <ul class="r-project-desc">
+                    {% for line in project.description.splitlines %}
+                        {% if line.strip %}
+                        <li>{{ line|cut:"• "|cut:"- " }}</li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+            {% endfor %}
+            {% for cert in resume.certifications.all %}
+            <div class="r-project-item">
+                <div class="r-project-header">
+                    <span class="r-project-title">{{ cert.name }} | {{ cert.organization }}</span>
+                    <span class="r-project-date">{{ cert.date|date:"F Y" }}</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
