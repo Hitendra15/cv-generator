@@ -3,13 +3,13 @@
 {% block body %}
 <div class="preview-wrapper">
     <div class="preview-actions">
-        <a href="javascript:history.back()" class="btn-back">
+        <a onclick="backPage()" class="btn-back">
             ← Back
         </a>
         <button type="button" class="btn-print" onclick="printResume()">
             🖨️ Print CV
         </button>
-        <a href="" class="btn-download">
+        <a href="{% url 'dashboard' %}" class="btn-download">
             Dashboard
         </a>
     </div>
@@ -104,7 +104,7 @@
                     <span class="r-edu-degree">
                         {{ edu.degree }}
                         {% if edu.field_of_study %} – {{ edu.field_of_study }}{% endif %}
-                        {% if edu.grade %} | GPA: {{ edu.grade }}{% endif %}
+                        {% if edu.grade %} | CGPA: {{ edu.grade }}{% endif %}
                     </span>
                     <span class="r-edu-date">
                         {{ edu.start_date|date:"M Y" }}&nbsp;-&nbsp;

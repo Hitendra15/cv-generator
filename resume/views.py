@@ -90,3 +90,56 @@ def preview_resume(request,slug):
     for skill in resume.skills.all():
         skills_grouped[skill.category].append(skill.name)
     return render(request,'resume/preview.html',{'resume':resume,'skills_grouped': dict(skills_grouped)})
+
+def dashboard(request):
+    resumes = Resume.objects.all().order_by('id')
+    return render(request,'resume/dashboard.html',{'resumes':resumes})
+
+def edit_resume(request, slug):
+    resume = get_object_or_404(Resume, slug=slug)
+    EducationFormSet = inlineformset_factory(Resume, Education, form=EducationForm, extra=0, can_delete=True)
+    ExperienceFormSet = inlineformset_factory(Resume, Experience, form=ExperienceForm, extra=0, can_delete=True)
+    SkillFormSet = inlineformset_factory(Resume, Skill, form=SkillForm, extra=0, can_delete=True)
+    ProjectFormSet = inlineformset_factory(Resume, Project, form=ProjectForm, extra=0, can_delete=True)
+    CertificationFormSet = inlineformset_factory(Resume, Certification, form=CertificationForm, extra=0, can_delete=True)
+    if request.method == 'POST':
+        resume_form = ResumeForm(request.POST, instance=resume)
+        education_formset = EducationFormSet(request.POST, instance=resume, prefix='education')
+        experience_formset = ExperienceFormSet(request.POST, instance=resume, prefix='experience')
+        skill_formset = SkillFormSet(request.POST, instance=resume, prefix='skill')
+        project_formset = ProjectFormSet(request.POST, instance=resume, prefix='project')
+        certification_formset = CertificationFormSet(request.POST, instance=resume, prefix='certification')
+        if (
+            resume_form.is_valid() and
+            education_formset.is_valid() and
+            experience_formset.is_valid() and
+            skill_formset.is_valid() and
+            project_formset.is_valid() and
+            certification_formset.is_valid()
+        ):
+            resume_form.save()
+            education_formset.save()
+            experience_formset.save()
+            skill_formset.save()
+            project_formset.save()
+            certification_formset.save()
+            return JsonResponse({
+                'status': 'success',
+                'redirect_url': reverse('preview_resume', args=[resume.slug])
+            })
+    else:
+        resume_form = ResumeForm(instance=resume)
+        education_formset = EducationFormSet(instance=resume, prefix='education')
+        experience_formset = ExperienceFormSet(instance=resume, prefix='experience')
+        skill_formset = SkillFormSet(instance=resume, prefix='skill')
+        project_formset = ProjectFormSet(instance=resume, prefix='project')
+        certification_formset = CertificationFormSet(instance=resume, prefix='certification')
+    return render(request, 'resume/create.html', {
+        'resume_form': resume_form,
+        'education_formset': education_formset,
+        'experience_formset': experience_formset,
+        'skill_formset': skill_formset,
+        'project_formset': project_formset,
+        'certification_formset': certification_formset,
+        'is_edit': True
+    })
