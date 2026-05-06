@@ -1,1 +1,40 @@
-<h3>Dashboard Page</h3>
+{% extends 'core/base.html' %}
+{% block title %}
+    Dashboard
+{% endblock %}
+{% block body %}
+<div class="dashboard">
+    <div class="dashboard-top">
+        <div>
+            <h2>Your Resumes</h2>
+            <p class="subtitle">Manage, edit, and download your resumes</p>
+        </div>
+        <a href="{% url 'create_resume' %}" class="btn-primary">+ Create Resume</a>
+    </div>
+    <div class="resume-grid">
+        {% for resume in resumes %}
+        <div class="resume-card">
+            <div class="card-title">
+                <h3>{{ resume.title }}</h3>
+            </div>
+            <p class="card-date">
+                Last updated: {{ resume.updated_at|date:"M d, Y" }}
+            </p>
+            <div class="card-actions">
+                <a href="{% url 'preview_resume' resume.slug %}" class="action-btn">Preview</a>
+                <a href="{% url 'edit_resume' resume.slug %}" class="action-btn">Edit</a>
+                <a href="{% url 'preview_resume' resume.slug %}?print=true" class="action-btn download">
+                    ⬇ Download
+                </a>
+            </div>
+        </div>
+        {% empty %}
+        <div class="empty-state">
+            <h3>No resumes yet</h3>
+            <p>Create your first resume and get started</p>
+            <a href="{% url 'create_resume' %}" class="btn-primary">Create Resume</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -26,6 +26,6 @@
 
     function backPage(){
         let $submitBtn = $form.find('.submit-btn');
-        $submitBtn.prop('disabled',false).text('Generate Resume');
+        $submitBtn.prop('disabled', false).text(isEdit ? 'Update Resume' : 'Generate Resume');
         history.back();
     }

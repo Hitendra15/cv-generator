@@ -6,6 +6,7 @@
         <p class="subtitle">Build a professional CV in minutes</p>
         <form method="POST" novalidate>
             {% csrf_token %}
+            <input type="hidden" name="is_edit" value="{{ is_edit|yesno:'1,0' }}">
             <div class="card-section">
                 <h3>Personal Details</h3>
                 <div class="form-grid">
@@ -65,6 +66,8 @@
                 {{ education_formset.management_form }}
                 {% for form in education_formset %}
                 <div class="mini-card">
+                    {{ form.id }}
+                    {{ form.DELETE }} 
                     <div class="form-grid">
                         <div class="input-group">
                             {{ form.degree.label_tag }}
@@ -104,6 +107,8 @@
                 <div id="experience-container">
                     {% for form in experience_formset %}
                     <div class="mini-card experience-form">
+                        {{ form.id }} 
+                        {{ form.DELETE }} 
                         <div class="form-grid">
                             <div class="input-group">
                                 {{ form.job_title.label_tag }}
@@ -140,6 +145,8 @@
             </div>
             <div id="empty-experience-form" style="display:none;">
                 <div class="mini-card experience-form">
+                    {{ experience_formset.empty_form.id }}
+                    {{ experience_formset.empty_form.DELETE }} 
                     <div class="form-grid">
                         <div class="input-group">
                             {{ experience_formset.empty_form.job_title.label_tag }}
@@ -175,6 +182,8 @@
                 <div id="skill-container">
                     {% for form in skill_formset %}
                     <div class="mini-card skill-form">
+                        {{ form.id }} 
+                        {{ form.DELETE }} 
                         <div class="form-grid">
                             <div class="input-group">
                                 {{ form.name.label_tag }}
@@ -195,6 +204,8 @@
             </div>
             <div id="empty-skill-form" style="display:none;">
                 <div class="mini-card skill-form">
+                    {{ skill_formset.empty_form.id }}
+                    {{ skill_formset.empty_form.DELETE }} 
                     <div class="form-grid">
                         <div class="input-group">
                             {{ skill_formset.empty_form.name.label_tag }}
@@ -214,6 +225,8 @@
                 <div id="project-container">
                     {% for form in project_formset %}
                     <div class="mini-card project-form">
+                        {{ form.id }} 
+                        {{ form.DELETE }} 
                         <div class="input-group">
                             {{ form.title.label_tag }}
                             {{ form.title }}
@@ -239,6 +252,8 @@
             </div>
             <div id="empty-project-form" style="display:none;">
                 <div class="mini-card project-form">
+                    {{ project_formset.empty_form.id }}
+                    {{ project_formset.empty_form.DELETE }}
                     <div class="input-group">
                         {{ project_formset.empty_form.title.label_tag }}
                         {{ project_formset.empty_form.title }}
@@ -260,6 +275,8 @@
                 <div id="certification-container">
                     {% for form in certification_formset %}
                     <div class="mini-card cert-form">
+                        {{ form.id }} 
+                        {{ form.DELETE }} 
                         <div class="form-grid">
                             <div class="input-group">
                                 {{ form.name.label_tag }}
@@ -284,6 +301,8 @@
             </div>
             <div id="empty-certification-form" style="display:none;">
                 <div class="mini-card cert-form">
+                    {{ certification_formset.empty_form.id }}
+                    {{ certification_formset.empty_form.DELETE }}
                     <div class="input-group">
                         {{ certification_formset.empty_form.name.label_tag }}
                         {{ certification_formset.empty_form.name }}
@@ -300,7 +319,7 @@
                 </div>
             </div>
             <button type="submit" class="submit-btn generate-resume">
-                Generate Resume
+            {% if is_edit %} Update Resume {% else %} Generate Resume {% endif %}
             </button>
         </form>
     </div>
@@ -341,7 +360,17 @@
             $total.val(index + 1);
         });
         $(document).on('click', '.remove-btn', function(){
-            $(this).closest('.mini-card').remove();
+            let $card = $(this).closest('.mini-card');
+            let $deleteInput = $card.find('input[type="checkbox"][name$="-DELETE"]');
+            if ($deleteInput.length) {
+                $deleteInput.prop('checked', true);
+                $card.hide();
+            } else {
+                $card.remove();
+                let prefix = $card.closest('[id$="-container"]').attr('id').split('-')[0];
+                let $total = $('#id_' + prefix + '-TOTAL_FORMS');
+                $total.val(parseInt($total.val()) - 1);
+            }
         });
     });
 
@@ -443,7 +472,8 @@
             return;
         }
         let $submitBtn = $form.find('.submit-btn');
-        $submitBtn.prop('disabled', true).text('Generating...');
+        let isEdit = $form.find('[name="is_edit"]').val() === '1';
+        $submitBtn.prop('disabled', true).text(isEdit ? 'Updating...' : 'Generating...');
         $.ajax({
             url: $form.attr('action') || window.location.href,
             type: 'POST',
@@ -460,7 +490,7 @@
                     $('html, body').animate({
                         scrollTop: $form.find('.error').first().offset().top - 100
                     }, 400);
-                    $submitBtn.prop('disabled', false).text('Generate Resume');
+                    $submitBtn.prop('disabled', false).text(isEdit ? 'Update Resume' : 'Generate Resume');
                 }
             },
             error: function(xhr) {
@@ -477,7 +507,7 @@
                         scrollTop: $form.find('.error').first().offset().top - 100
                     }, 400);
                 }
-                $submitBtn.prop('disabled', false).text('Generate Resume');
+                $submitBtn.prop('disabled', false).text(isEdit ? 'Update Resume' : 'Generate Resume');
             }
         });
     });
