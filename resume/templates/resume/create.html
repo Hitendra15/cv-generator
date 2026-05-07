@@ -3,8 +3,9 @@
 <div class="page">
     <div class="wrapper">
         <h1>Create Resume</h1>
+        <a href="{% url 'dashboard' %}" style="display:inline-block; padding:8px 18px; background:#3b3f8c; color:#fff; border-radius:6px; font-weight:600; text-decoration:none; float:right;">Back</a>
         <p class="subtitle">Build a professional CV in minutes</p>
-        <form method="POST" novalidate>
+        <form method="POST" novalidate id="ResumeForm">
             {% csrf_token %}
             <input type="hidden" name="is_edit" value="{{ is_edit|yesno:'1,0' }}">
             <div class="card-section">

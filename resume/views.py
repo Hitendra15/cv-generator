@@ -5,6 +5,10 @@ from .forms import ResumeForm, EducationForm, ExperienceForm, SkillForm,ProjectF
 from django.http import JsonResponse
 from django.urls import reverse
 from collections import defaultdict
+from xhtml2pdf import pisa
+from django.template.loader import get_template
+from django.http import HttpResponse, Http404
+import io
 
 def create_resume(request):
     EducationFormSet = inlineformset_factory(Resume, Education, form=EducationForm, extra=1)
@@ -84,12 +88,18 @@ def create_resume(request):
         'certification_formset': certification_formset,
     })
         
-def preview_resume(request,slug):
-    resume = get_object_or_404(Resume,slug=slug)
-    skills_grouped = defaultdict(list)
-    for skill in resume.skills.all():
-        skills_grouped[skill.category].append(skill.name)
-    return render(request,'resume/preview.html',{'resume':resume,'skills_grouped': dict(skills_grouped)})
+def preview_resume(request, slug):
+    try:
+        resume = Resume.objects.get(slug=slug)
+        skills_grouped = defaultdict(list)
+        for skill in resume.skills.all():
+            skills_grouped[skill.category].append(skill.name)
+        return render(request, 'resume/preview.html', {
+            'resume': resume,
+            'skills_grouped': dict(skills_grouped)
+        })
+    except Resume.DoesNotExist:
+        raise Http404("Resume not found")
 
 def dashboard(request):
     resumes = Resume.objects.all().order_by('id')
@@ -143,3 +153,23 @@ def edit_resume(request, slug):
         'certification_formset': certification_formset,
         'is_edit': True
     })
+
+def download_pdf(request, slug):
+    user_profile = get_object_or_404(Resume, slug=slug)
+    skills_grouped = defaultdict(list)
+    for skill in user_profile.skills.all():
+        skills_grouped[skill.category].append(skill.name)
+    template_path = 'resume/download.html'
+    context = {'resume': user_profile,'skills_grouped': dict(skills_grouped)}
+    template = get_template(template_path)
+    html = template.render(context)
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = f'attachment; filename={user_profile.name}_CV.pdf'
+    pisa_status = pisa.CreatePDF(
+        io.BytesIO(html.encode('UTF-8')),
+        dest=response,
+        encoding='UTF-8'
+    )
+    if pisa_status.err:
+        return HttpResponse('Error generating PDF', status=500)
+    return response
