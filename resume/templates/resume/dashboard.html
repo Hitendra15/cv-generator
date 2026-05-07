@@ -18,12 +18,13 @@
                 <h3>{{ resume.title }}</h3>
             </div>
             <p class="card-date">
-                Last updated: {{ resume.updated_at|date:"M d, Y" }}
+                <span class="date-icon">🕒</span>
+                <span>Created <strong>{{ resume.created_at|timesince }} ago</strong></span>
             </p>
             <div class="card-actions">
                 <a href="{% url 'preview_resume' resume.slug %}" class="action-btn">Preview</a>
                 <a href="{% url 'edit_resume' resume.slug %}" class="action-btn">Edit</a>
-                <a href="{% url 'preview_resume' resume.slug %}?print=true" class="action-btn download">
+                <a href="{% url 'download_pdf' resume.slug %}?print=true" class="action-btn download">
                     ⬇ Download
                 </a>
             </div>

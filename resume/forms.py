@@ -55,7 +55,7 @@ class EducationForm(forms.ModelForm):
             'start_date': 'Start Date',
             'end_date': 'End Date',
             'field_of_study': 'Field of Study',
-            'grade': 'Grade / GPA',   
+            'grade': 'Grade / CGPA',   
             'location': 'Location',
         }
         widgets = {

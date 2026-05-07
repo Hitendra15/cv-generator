@@ -13,6 +13,7 @@ class Resume(models.Model):
     linkedin = models.URLField(null=True, blank=True)
     github = models.URLField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True,null=True,blank=True)
 
     def __str__(self):
         return self.name
